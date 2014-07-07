@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Nancy Sinatra: An instance of Ruby's influence on .NET</title>
+
+		<meta name="description" content="Presenting NancyFx.">
+		<meta name="author" content="David Roberts">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/github.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Nancy Sinatra</h1><br/>
+					<h3>An instance of Ruby's influence in .NET</h3>
+					<p>
+						<small>Presented by <a href="http://teapotcoder.com">David Roberts</a> / <a href="http://twitter.com/davidroberts63">@davidroberts63</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Sinatra</h2>
+					<p>
+						A DSL for quickly creating web applications in Ruby.
+					</p>
+					<p>&nbsp;</p>
+					<pre><code data-trim contenteditable>
+get "/sayhello/{name}" do
+  "Hello " + {name}
+end
+					</code></pre>
+
+					<aside class="notes">
+						I believe many of us here are somewhat familiar with Sinatra ruby. An alternative to Rails and sometimes used along with Rails. What you see before you is a simple Sinatra app. Run this in ruby and you have a working website. 
+					</aside>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<h2>Nancy</h2>
+					<p>Lightweight low ceremony web application framework</p>
+
+					<pre><code>
+public class HomeModule : NancyModule
+{
+	public HomeModule()
+	{
+	&nbsp;&nbsp;&nbsp;&nbsp;get[&Prime;/sayhello/{name}&Prime;] = 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input =&gt; return &Prime;Hello &Prime; + input.Name;
+	}
+}
+</code></pre>
+
+					<aside class="notes">
+						Nancy is a lightweight web application framework in .NET that was insired by Sinatra. Created by [CREATOR NAME] about [WHEN STARTED] it has grown a good following and community even having NVP (Nancy Valuple Players). Again what you see is a simple Nancy app that will run once inside a .NET project. The .NET world still uses project files but that may be changing in the future.
+					</aside>
+				</section>
+
+
+				<section>
+					<h2>Tweet App</h2>
+					<br/>
+					<pre><code>
+
+scriptcs -install ScriptCs.Nancy;
+'Require&lt;NancyPack&gt;().Get("/",_=>"Hi").Host();'|Out-File s.x;
+scriptcs s.x #dropsmike @NancyFx @scriptcsnet 
+
+					</code></pre>
+
+					<aside class="notes">
+					Most of the time writing a Nancy app would look like what you just saw. A Visual Studio project with that NancyModule in place. However with the creation of ScriptCS it can get smaller in some uses. Briefly, ScriptCS is a scripting environment for C# and it also has a REPL environment. What you see is an entire web application in Nancy. Installing the dependencies, creating the application file, and running it. All fitting within a tweet with enough room for shout outs to Nancy and ScriptCS.
+					</aside>
+				</section>
+
+				<section>
+					<section>
+						<h2>Runs just about anywhere</h2>
+						<p>Uses its own Request/Response objects.<br/>Not dependent on ASP.NET
+						</p>
+						<br/>
+						<ul>
+							<li>OWIN</li>
+							<li>Self Host</li>
+							<li>ASP.NET</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>WCF</h2>
+						<p>Ewwww.<p>
+						<p>Note, WCF <strong>NOT</strong> inspired by Ruby. Because Ruby wouldn't do that.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>S. D. H. P.</h2>
+					<br/>
+
+					<ul>
+						<li>It Just Works</li>
+						<li>Easily Customizable</li>
+						<li>Low Ceremony</li>
+						<li>Low Friction</li>
+					</ul>
+					<br/><br/>
+
+					<h2 class="fragment">
+					Super Duper Happy Path
+					</h2>
+
+					<aside class="notes">
+The SDHP is an idea created in the Nancy framework that makes the development process much simpler from a .NET perspective. Most of what the SDHP does is similar to things done in Ruby. So what is the SDHP? It's the Super Duper Happy Path. This is a happy path that most of us would give up coffee for. The rest of us…drink tea.
+
+If your class needs a dependency just define it and use it. Nancy uses dependency injection (TinyIOC by default) for all your modules and other classes. Don't want TinyIoC put in your own. Most of the well known .NET IoC projects already have Nugets ready for you to use. And for those of you who know of the infamous ASP.NET web.config. That doesn't exist here. 
+					</aside>
+				</section>
+
+				<section>
+					<section>
+					<h2>Easily Customizable</h2><br/>
+					<p>Custom Model Binding</p><br/>
+					<pre><code>
+public class CustomModelBinder : Nancy.ModelBinding.IModelBinder 
+{
+.. 
+}
+					</code></pre>
+					</section>
+
+					<section>
+						<h2>Easily Customizable</h2><br/>
+						<p>Custom View Engine</p><br/>
+						<pre><code>
+	public class CustomViewEngine : Nancy.ViewEngines.IViewEngine
+	{
+	.. 
+	}
+						</code></pre>
+
+						<ul style="float: left;">
+							<li>Super Simple</li>
+							<li>Razor</li>
+							<li>NDjango</li>
+							<li>Nustache</li>
+							<li>Spark</li>
+						</ul>
+
+						<ul style="float: right;">
+							<li>DotLiquid</li>
+							<li>Veil</li>
+							<li>Parrot</li>
+							<li>NHaml</li>
+							<li>HandlebarsJs</li>
+							<li>Markdown</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Easily Customizable</h2><br/>
+						<p>Before/After request hooks</p>
+						<br/>
+						<pre><code>
+Before += ctx =&gt;
+{
+	return&lt;nulloraResponseobject&gt;;
+};
+
+After += ctx =&gt;
+{
+	// Modify the response in context
+};
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<h2>Testability</h2>
+					<p>Test the whole Nancy pipeline quickly with the <strong>Browser</strong> object.</p>
+
+					<pre><code>
+[Fact]
+public void Should_return_status_ok_when_route_exists()
+{
+	// Given
+	var bootstrapper = new DefaultNancyBootstrapper();
+	var browser = new Browser(bootstrapper, 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaults: to =&gt; to.Accept(&Prime;application/json&Prime;));
+
+	// When
+	var result = browser.Get(&Prime;/&Prime;, with =&gt; { with.HttpRequest(); } );
+
+	// Then
+	Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Spectacular image!</h2>
+					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
+						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
+					</a>
+				</section>
+
+				<section>
+					<h1>!the_beginning</h1><br/>
+					<h3>teapotcoder.com</h3>
+					<h3>@davidroberts63</h3>
+					<p>twitter, github, bitbucket, jabbr, IRC</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
