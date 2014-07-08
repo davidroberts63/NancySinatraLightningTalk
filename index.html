@@ -86,31 +86,9 @@ end</code></pre>
 					</aside>
 				</section>
 
-				<!-- Example of nested vertical slides -->
-				<section>
-					<h2>Nancy</h2>
-					<p>Lightweight low ceremony web application framework</p>
-
-					<pre><code>
-public class HomeModule : NancyModule
-{
-	public HomeModule()
-	{
-	&nbsp;&nbsp;&nbsp;&nbsp;get[&Prime;/sayhello/{name}&Prime;] = 
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input =&gt; return &Prime;Hello &Prime; + input.Name;
-	}
-}
-</code></pre>
-
-					<aside class="notes">
-						Nancy is a lightweight web application framework in .NET that was insired by Sinatra. Created by [CREATOR NAME] about [WHEN STARTED] it has grown a good following and community even having NVP (Nancy Valuple Players). Again what you see is a simple Nancy app that will run once inside a .NET project. The .NET world still uses project files but that may be changing in the future.
-					</aside>
-				</section>
-
-
 				<section>
 					<h2>Tweet App</h2>
-					<br/>
+					<p>Using ScriptCS</p>
 					<pre><code>
 
 scriptcs -install ScriptCs.Nancy;
@@ -134,6 +112,7 @@ scriptcs s.x #dropsmike @NancyFx @scriptcsnet
 							<li>OWIN</li>
 							<li>Self Host</li>
 							<li>ASP.NET</li>
+							<li>Nginx, RaspberryPi ...</li>
 						</ul>
 					</section>
 
@@ -165,6 +144,21 @@ The SDHP is an idea created in the Nancy framework that makes the development pr
 
 If your class needs a dependency just define it and use it. Nancy uses dependency injection (TinyIOC by default) for all your modules and other classes. Don't want TinyIoC put in your own. Most of the well known .NET IoC projects already have Nugets ready for you to use. And for those of you who know of the infamous ASP.NET web.config. That doesn't exist here. 
 					</aside>
+				</section>
+
+				<section>
+					<h2>Content Negotiation</h2>
+					<p>Done automatically<span class="fragment" data-fragment-index="1"> or controll it yourself</span></p>
+					<pre><code>Get["/"] = p => return "Hello Jupiter!";</code></pre>
+
+					<pre class="fragment" data-fragment-index="1"><code>Get["/"] = parameters => {
+  return Negotiate
+    .WithModel(new RatPack {FirstName = "Nancy "})
+    .WithMediaRangeModel("text/html", 
+        new RatPack {FirstName = "Nancy for html"})
+    .WithView("negotiatedview")
+    .WithHeader("X-Custom", "SomeValue");
+};</code></pre>
 				</section>
 
 				<section>
@@ -237,6 +231,10 @@ After += ctx =&gt;
 
 &nbsp;Assert.Equal(HttpStatusCode.OK, result.StatusCode);
 }</code></pre>
+				</section>
+
+				<section>
+					<h2>Diagnostics</h2>
 				</section>
 
 				<section>
