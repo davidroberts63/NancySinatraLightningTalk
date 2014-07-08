@@ -14,7 +14,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
 
 		<!-- For syntax highlighting -->
@@ -43,7 +43,9 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>Nancy Sinatra</h1><br/>
+					<h1>
+						<span style="font-family: Consolas; -webkit-text-stroke: 3px black; color: white">Nancy</span>
+						<span style="-webkit-text-stroke: 3px white; color: black">Sinatra</span></h1><br/>
 					<h3>An instance of Ruby's influence in .NET</h3>
 					<p>
 						<small>Presented by <a href="http://teapotcoder.com">David Roberts</a> / <a href="http://twitter.com/davidroberts63">@davidroberts63</a></small>
@@ -56,7 +58,7 @@
 						A DSL for quickly creating web applications in Ruby.
 					</p>
 					<p>&nbsp;</p>
-					<pre><code data-trim contenteditable>
+					<pre><code data-trim>
 get "/sayhello/{name}" do
   "Hello " + {name}
 end
@@ -153,21 +155,19 @@ If your class needs a dependency just define it and use it. Nancy uses dependenc
 					<h2>Easily Customizable</h2><br/>
 					<p>Custom Model Binding</p><br/>
 					<pre><code>
-public class CustomModelBinder : Nancy.ModelBinding.IModelBinder 
-{
-.. 
-}
+public class CustomModelBinder 
+&nbsp;&nbsp;: Nancy.ModelBinding.IModelBinder 
+{ . . . }
 					</code></pre>
 					</section>
 
 					<section>
-						<h2>Easily Customizable</h2><br/>
-						<p>Custom View Engine</p><br/>
+						<h2>Easily Customizable</h2>
+						<p>Custom View Engine</p>
 						<pre><code>
-	public class CustomViewEngine : Nancy.ViewEngines.IViewEngine
-	{
-	.. 
-	}
+public class CustomViewEngine 
+&nbsp;&nbsp;: Nancy.ViewEngines.IViewEngine
+{ . . . }
 						</code></pre>
 
 						<ul style="float: left;">
@@ -209,29 +209,17 @@ After += ctx =&gt;
 					<h2>Testability</h2>
 					<p>Test the whole Nancy pipeline quickly with the <strong>Browser</strong> object.</p>
 
-					<pre><code>
-[Fact]
-public void Should_return_status_ok_when_route_exists()
+					<pre><code>public void Should_return_status_ok_when_route_exists()
 {
-	// Given
-	var bootstrapper = new DefaultNancyBootstrapper();
-	var browser = new Browser(bootstrapper, 
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaults: to =&gt; to.Accept(&Prime;application/json&Prime;));
+&nbsp;var bootstrapper = new DefaultNancyBootstrapper();
+&nbsp;var browser = new Browser(bootstrapper, 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaults: to =&gt; to.Accept(&Prime;application/json&Prime;));
 
-	// When
-	var result = browser.Get(&Prime;/&Prime;, with =&gt; { with.HttpRequest(); } );
+&nbsp;var result = browser.Get(&Prime;/&Prime;, 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with =&gt; { with.HttpRequest(); } );
 
-	// Then
-	Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-}
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>Spectacular image!</h2>
-					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
-						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
-					</a>
+&nbsp;Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+}</code></pre>
 				</section>
 
 				<section>
@@ -253,9 +241,11 @@ public void Should_return_status_ok_when_route_exists()
 			// Full list of configuration options available here:
 			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
-				controls: true,
+				width: "90%",
+
+				controls: false,
 				progress: true,
-				history: true,
+				history: false,
 				center: true,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
