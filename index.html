@@ -53,16 +53,33 @@
 				</section>
 
 				<section>
-					<h2>Sinatra</h2>
-					<p>
-						A DSL for quickly creating web applications in Ruby.
-					</p>
-					<p>&nbsp;</p>
-					<pre><code data-trim>
-get "/sayhello/{name}" do
+					<div>
+
+						<div style="margin-left: 50%; width: 45%;">
+							<h2>Sinatra</h2>
+							<h6>A DSL for quickly creating web applications in Ruby.</h6>
+						</div>
+						
+						<div style="display: inline-block; width: 40%; margin-left: -50%; margin-top: -5%" class="fragment" data-fragment-index="1">
+							<h2>Nancy</h2>
+							<h6>Lightweight low ceremony web application framework</h6>
+						</div>
+
+						<pre style="margin-left: 50%; width: 45%; margin-top: -10%"><code data-trim>get "/sayhello/{name}" do
   "Hello " + {name}
-end
-					</code></pre>
+end</code></pre>
+					</div>
+
+					<div class="fragment" data-fragment-index="1">
+					<pre><code>public class HomeModule : NancyModule
+{
+	public HomeModule()
+	{
+	&nbsp;&nbsp;&nbsp;&nbsp;get[&Prime;/sayhello/{name}&Prime;] = 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input =&gt; return &Prime;Hello &Prime; + input.Name;
+	}
+}</code></pre>
+					</div>
 
 					<aside class="notes">
 						I believe many of us here are somewhat familiar with Sinatra ruby. An alternative to Rails and sometimes used along with Rails. What you see before you is a simple Sinatra app. Run this in ruby and you have a working website. 
