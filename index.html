@@ -75,11 +75,11 @@ end</code></pre>
 					<div class="fragment" data-fragment-index="1">
 					<pre><code>public class HomeModule : NancyModule
 {
-	public HomeModule()
-	{
-	&nbsp;&nbsp;&nbsp;&nbsp;get[&Prime;/sayhello/{name}&Prime;] = 
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input =&gt; return &Prime;Hello &Prime; + input.Name;
-	}
+  public HomeModule()
+  {
+  &nbsp;&nbsp;&nbsp;&nbsp;Get[&Prime;/sayhello/{name}&Prime;] = 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input =&gt; return &Prime;Hello &Prime; + input.Name;
+  }
 }</code></pre>
 					</div>
 
@@ -222,7 +222,7 @@ After += ctx =&gt;
 					<h2>Testability</h2>
 					<p>Test the whole Nancy pipeline quickly with the <strong>Browser</strong> object.</p>
 
-					<pre><code>public void Should_return_status_ok_when_route_exists()
+					<pre><code class="cs">public void Should_return_status_ok_when_route_exists()
 {
 &nbsp;var bootstrapper = new DefaultNancyBootstrapper();
 &nbsp;var browser = new Browser(bootstrapper, 
@@ -237,6 +237,12 @@ After += ctx =&gt;
 
 				<section>
 					<h2>Diagnostics</h2>
+					<ul>
+						<li>Information (== PHPINFO)</li>
+						<li>Static Configuration</li>
+						<li>Request Tracing</li>
+						<li>Interactive Diagnostics (customizable)</li>
+					</ul>
 				</section>
 
 				<section>
