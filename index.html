@@ -84,23 +84,21 @@ end</code></pre>
 					</div>
 
 					<aside class="notes">
-						I believe many of us here are somewhat familiar with Sinatra ruby. An alternative to Rails and sometimes used along with Rails. What you see before you is a simple Sinatra app. Run this in ruby and you have a working website. 
+						I believe many of us here are somewhat familiar with Sinatra ruby. What you see here is a simple Sinatra app. Run this in ruby and you have a working website. Nancy is a simple web application framework for .NET. Here you see a simple Nancy app. There is additional structure because of the static typing of C# but overall similar to Sinatra.
+
+						Nancy supports most of the rout matching that Sinatra does. Such as regular expressions, optional, default values, constraints such as integer, date time, min/max, and customized such as email.
 					</aside>
 				</section>
 
 				<section>
 					<h2>Tweet App</h2>
 					<p>Using ScriptCS</p>
-					<pre><code>
-
-scriptcs -install ScriptCs.Nancy;
+					<pre><code>scriptcs -install ScriptCs.Nancy;
 'Require&lt;NancyPack&gt;().Get("/",_=>"Hi").Host();'|Out-File s.x;
-scriptcs s.x #dropsmike @NancyFx @scriptcsnet 
-
-					</code></pre>
+scriptcs s.x #dropsmike @NancyFx @scriptcsnet</code></pre>
 
 					<aside class="notes">
-					Most of the time writing a Nancy app would look like what you just saw. A Visual Studio project with that NancyModule in place. However with the creation of ScriptCS it can get smaller in some uses. Briefly, ScriptCS is a scripting environment for C# and it also has a REPL environment. What you see is an entire web application in Nancy. Installing the dependencies, creating the application file, and running it. All fitting within a tweet with enough room for shout outs to Nancy and ScriptCS.
+						Most of the time writing a Nancy app would look like what you just saw. A Visual Studio project with that NancyModule in place. However with the creation of ScriptCS it can get smaller in some uses. Briefly, ScriptCS is a scripting environment for C# and it also has a REPL environment. What you see is an entire web application in Nancy. Installing the dependencies, creating the application file, and running it. All fitting within a tweet with enough room for shout outs to Nancy and ScriptCS.
 					</aside>
 				</section>
 
@@ -116,6 +114,10 @@ scriptcs s.x #dropsmike @NancyFx @scriptcsnet
 							<li>ASP.NET</li>
 							<li>Nginx, RaspberryPi ...</li>
 						</ul>
+
+						<aside class="notes">
+							Nancy is self contained in that it doesn't depend on ASP.NET like MVC does. It can be run in many different types of hosts such as OWIN, ASP.NET and others. You can even self host it in an executable or on Linux in Mono. There is also documentation on the Nancy site to run it on RaspberryPi or Nginx.
+						</aside>
 					</section>
 
 					<section>
@@ -142,9 +144,9 @@ scriptcs s.x #dropsmike @NancyFx @scriptcsnet
 					</h2>
 
 					<aside class="notes">
-The SDHP is an idea created in the Nancy framework that makes the development process much simpler from a .NET perspective. Most of what the SDHP does is similar to things done in Ruby. So what is the SDHP? It's the Super Duper Happy Path. This is a happy path that most of us would give up coffee for. The rest of us…drink tea.
+						The SDHP is an idea created in the Nancy framework that makes the development process much simpler from a .NET perspective. Most of what the SDHP does is similar to things done in Ruby. So what is the SDHP? It's the Super Duper Happy Path. This is a happy path that most of us would give up coffee for. The rest of us…drink tea.
 
-If your class needs a dependency just define it and use it. Nancy uses dependency injection (TinyIOC by default) for all your modules and other classes. Don't want TinyIoC put in your own. Most of the well known .NET IoC projects already have Nugets ready for you to use. And for those of you who know of the infamous ASP.NET web.config. That doesn't exist here. 
+						If your class needs a dependency just define it and use it. Nancy uses dependency injection (TinyIOC by default) for all your modules and other classes. Don't want TinyIoC put in your own. Most of the well known .NET IoC projects already have Nugets ready for you to use. 
 					</aside>
 				</section>
 
@@ -161,6 +163,11 @@ If your class needs a dependency just define it and use it. Nancy uses dependenc
     .WithView("negotiatedview")
     .WithHeader("X-Custom", "SomeValue");
 };</code></pre>
+
+					<aside class="notes">
+						Like in Sinatra, Nancy does content negotiation out of the box. Just pass back the data and Nancy will process it into an html page, json, or xml response depending on the requests Accept header. You can also add custom ones easily. Control the negotiation yourself if you want with the Negotiate property. 
+					</aside>
+
 				</section>
 
 				<section>
@@ -172,16 +179,18 @@ public class CustomModelBinder
 &nbsp;&nbsp;: Nancy.ModelBinding.IModelBinder 
 { . . . }
 					</code></pre>
+
+						<aside class="notes">
+							Because of the SDHP customizing is very easy.  Just define the class and Nancy will pick up most customizations automatically. Custom model binding for instance.
+						</aside>
 					</section>
 
 					<section>
 						<h2>Easily Customizable</h2>
 						<p>Custom View Engine</p>
-						<pre><code>
-public class CustomViewEngine 
+						<pre><code>public class CustomViewEngine 
 &nbsp;&nbsp;: Nancy.ViewEngines.IViewEngine
-{ . . . }
-						</code></pre>
+{ . . . }</code></pre>
 
 						<ul style="float: left;">
 							<li>Super Simple</li>
@@ -199,14 +208,17 @@ public class CustomViewEngine
 							<li>HandlebarsJs</li>
 							<li>Markdown</li>
 						</ul>
+
+						<aside class="notes">
+							Or custom view engines. Nancy comes with the Super Simple view engine by default. There are several NuGet packages with other view engines available for use.
+						</aside>
 					</section>
 
 					<section>
 						<h2>Easily Customizable</h2><br/>
 						<p>Before/After request hooks</p>
 						<br/>
-						<pre><code>
-Before += ctx =&gt;
+						<pre><code>Before += ctx =&gt;
 {
 	return&lt;nulloraResponseobject&gt;;
 };
@@ -214,8 +226,7 @@ Before += ctx =&gt;
 After += ctx =&gt;
 {
 	// Modify the response in context
-};
-						</code></pre>
+};</code></pre>
 					</section>
 				</section>
 				<section>
@@ -233,6 +244,12 @@ After += ctx =&gt;
 
 &nbsp;Assert.Equal(HttpStatusCode.OK, result.StatusCode);
 }</code></pre>
+
+					<aside class="notes">
+						Its testability is easily one of the best features of Nancy. Because it's not dependent on ASP.NET, exercising the entire nancy pipeline including any custom model binders, request/response pipeline customizations etc. is a breeze. The Browser object allows you to easily test your modules individually or verify the Nancy setup entirely.
+
+						The Browser object also allows you to verify your response output be it JSON, XML, or HTML without having to go through an actual browser.
+					</aside>
 				</section>
 
 				<section>
@@ -243,6 +260,10 @@ After += ctx =&gt;
 						<li>Request Tracing</li>
 						<li>Interactive Diagnostics (customizable)</li>
 					</ul>
+
+					<aside class="notes">
+						Nancy comes with a diagnostics module built in. I'll just touh on one interesting part of it the Interactive Diagnostics. You can create custom diagnostic objects with functionality to operate upon your app. You could have the ability to view a list of files in a data directory or remove some of the files for example. Nancy handles the input form generation for you to make it very easy to add runtime diagnostic operations to your site.
+					</aside>
 				</section>
 
 				<section>
@@ -250,6 +271,11 @@ After += ctx =&gt;
 					<h3>teapotcoder.com</h3>
 					<h3>@davidroberts63</h3>
 					<p>twitter, github, bitbucket, jabbr, IRC</p>
+					<a href="http://nancyfx.org">NancyFx.org</a>
+
+					<aside class="notes">
+						That's all I have to talk about Nancy right now. There is a lot more too it and plenty of documentation to go with it. You can see that Ruby is having a very good influence on .NET with Nancy, OWIN (the Rack for .NET) and C# scripting with ScriptCS. So take a look to see that .NET is headed in a great direction.
+					</aside>
 				</section>
 
 			</div>
