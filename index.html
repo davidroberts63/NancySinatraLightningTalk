@@ -214,20 +214,6 @@ public class CustomModelBinder
 						</aside>
 					</section>
 
-					<section>
-						<h2>Easily Customizable</h2><br/>
-						<p>Before/After request hooks</p>
-						<br/>
-						<pre><code>Before += ctx =&gt;
-{
-	return&lt;nulloraResponseobject&gt;;
-};
-
-After += ctx =&gt;
-{
-	// Modify the response in context
-};</code></pre>
-					</section>
 				</section>
 				<section>
 					<h2>Testability</h2>
@@ -296,6 +282,7 @@ After += ctx =&gt;
 				progress: true,
 				history: false,
 				center: true,
+				mouseWheel: true,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
